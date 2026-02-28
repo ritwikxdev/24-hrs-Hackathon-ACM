@@ -1,0 +1,2256 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AB-FDA &mdash; AI-powered Ayushman Bharat Fraud Detection &amp; Analytics Platform" />
+  <title>AB-FDA | Fraud Detection & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f0f4ff;
+      --bg2: #e8eeff;
+      --surface: #ffffff;
+      --surface2: #f8faff;
+      --border: rgba(37, 99, 235, 0.12);
+      --border2: rgba(37, 99, 235, 0.25);
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-dark: #1d4ed8;
+      --green: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --purple: #8b5cf6;
+      --text: #1a2540;
+      --text2: #334155;
+      --muted: #64748b;
+      --muted2: #94a3b8;
+      --radius: 12px;
+      --radius-lg: 18px;
+      --t: 0.22s cubic-bezier(.4, 0, .2, 1);
+      --max-w: 1280px;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 16px rgba(37, 99, 235, 0.08);
+      --shadow-lg: 0 4px 24px rgba(37, 99, 235, 0.14), 0 1px 4px rgba(0, 0, 0, 0.06);
+      --shadow-blue: 0 8px 32px rgba(37, 99, 235, 0.22);
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--blue);
+      border-radius: 3px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    @keyframes toastIn {
+      from {
+        transform: translateX(110%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes toastOut {
+      to {
+        transform: translateX(110%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes ping {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      75%,
+      100% {
+        transform: scale(2.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes number-pop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes pulse-ring {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slide-in {
+      from {
+        opacity: 0;
+        transform: translateX(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+
+    /* &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; NAVBAR &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(37, 99, 235, 0.08);
+    }
+
+    .navbar-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 66px;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      display: grid;
+      place-items: center;
+      font-size: .72rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .brand-text {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -.01em;
+    }
+
+    .brand-text span {
+      color: var(--blue);
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .navbar-nav a {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color var(--t);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .navbar-nav a:hover,
+    .navbar-nav a.active {
+      color: var(--blue);
+    }
+
+    .navbar-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 2px;
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; BUTTON &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      font-family: inherit;
+      font-size: .88rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--t);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-blue);
+    }
+
+    .btn-primary:active {
+      transform: scale(.97);
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-green:hover {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-neon {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-neon:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid var(--border2);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(37, 99, 235, 0.06);
+      border-color: var(--blue);
+    }
+
+    .btn-sync.loading {
+      pointer-events: none;
+      opacity: .7;
+    }
+
+    .btn-sync .spinner {
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255, 255, 255, .4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      display: none;
+      animation: spin .65s linear infinite;
+    }
+
+    .btn-sync.loading .spinner {
+      display: inline-block;
+    }
+
+    .btn-sync.loading .btn-label {
+      display: none;
+    }
+
+    /* &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; TICKER BAR &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; */
+    .ticker-bar {
+      background: var(--blue);
+      overflow: hidden;
+      height: 38px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-label {
+      flex-shrink: 0;
+      padding: 0 18px 0 20px;
+      font-size: .7rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker 30s linear infinite;
+    }
+
+    .ticker-item {
+      padding: 0 28px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ticker-item span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; HERO &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8f0fe 0%, #f0f4ff 40%, #e8f4ff 100%);
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 80px 32px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 18px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .hero-tag .ping-dot {
+      position: relative;
+      width: 8px;
+      height: 8px;
+    }
+
+    .hero-tag .ping-dot::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: ping 1.5s cubic-bezier(0, 0, .2, 1) infinite;
+    }
+
+    .hero-tag .ping-dot::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(90deg, var(--blue) 0%, #6366f1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .hero-meta {
+      font-size: .78rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-meta .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse-ring 2s ease infinite;
+    }
+
+    /* Hero diagram */
+    .hero-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 360px;
+    }
+
+    .diagram-center {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, #2563eb, #6366f1);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: .75rem;
+      box-shadow: 0 8px 32px rgba(37, 99, 235, 0.4);
+      z-index: 2;
+    }
+
+    .diagram-center span {
+      font-size: 1.4rem;
+    }
+
+    .orbit-icon {
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      background: #fff;
+      border: 2px solid var(--border2);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: var(--shadow);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .orbit-icon:nth-child(2) {
+      top: 20px;
+      right: 80px;
+      animation-delay: .3s;
+    }
+
+    .orbit-icon:nth-child(3) {
+      top: 100px;
+      right: 20px;
+      animation-delay: .8s;
+    }
+
+    .orbit-icon:nth-child(4) {
+      bottom: 100px;
+      right: 20px;
+      animation-delay: 1.2s;
+    }
+
+    .orbit-icon:nth-child(5) {
+      bottom: 20px;
+      right: 80px;
+      animation-delay: .5s;
+    }
+
+    .orbit-icon:nth-child(6) {
+      top: 20px;
+      left: 80px;
+      animation-delay: .9s;
+    }
+
+    .orbit-icon:nth-child(7) {
+      bottom: 20px;
+      left: 80px;
+      animation-delay: 1.5s;
+    }
+
+    .orbit-line {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    /* &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; STAT CARDS &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; */
+    .stats-row {
+      max-width: var(--max-w);
+      margin: -56px auto 0;
+      padding: 0 32px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      overflow: hidden;
+      transition: transform var(--t), box-shadow var(--t);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 16%;
+      bottom: 16%;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .stat-card.total::after {
+      background: var(--blue);
+    }
+
+    .stat-card.high::after {
+      background: var(--red);
+    }
+
+    .stat-card.medium::after {
+      background: var(--amber);
+    }
+
+    .stat-card.low::after {
+      background: var(--green);
+    }
+
+    .stat-card.amount::after {
+      background: var(--purple);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -.02em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 6px;
+    }
+
+    /* &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; FEATURE TABS &#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172;&#195;&#402;&#194;&#162;&#195;&#162;&#226;&#8218;&#172;&#194;&#157;&#195;&#162;&#226;&#8364;&#353;&#194;&#172; */
+    .tabs-section {
+      background: #fff;
+      padding: 80px 32px;
+    }
+
+    .tabs-section-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .tabs-section-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--text);
+      max-width: 680px;
+      margin: 0 auto 48px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .tabs-nav {
+      display: flex;
+      justify-content: center;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 40px;
+      gap: 0;
+    }
+
+    .tab-btn {
+      padding: 14px 28px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: color var(--t);
+    }
+
+    .tab-btn.active {
+      color: var(--blue);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .tab-content {
+      display: none;
+      animation: slide-in .35s ease;
+    }
+
+    .tab-content.active {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .tab-text h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .tab-text p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .tab-feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tab-feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .9rem;
+      color: var(--text2);
+    }
+
+    .tab-feature-list li::before {
+      content: '\2713';
+      width: 22px;
+      height: 22px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: .75rem;
+      flex-shrink: 0;
+    }
+
+    .tab-visual {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+    }
+
+    .tab-visual-inner {
+      text-align: center;
+    }
+
+    .tab-visual-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+    }
+
+    .tab-visual-label {
+      font-size: .85rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--blue);
+      padding: 80px 32px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 540px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .section-header p {
+      font-size: .84rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* CHARTS */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 5fr 3fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    @media(max-width:900px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: box-shadow var(--t);
+      box-shadow: var(--shadow);
+    }
+
+    .chart-card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .chart-card h3 {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-card h3::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .chart-container {
+      position: relative;
+      height: 360px;
+    }
+
+    /* TOOLBAR */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: .9rem;
+      pointer-events: none;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 11px 14px 11px 42px;
+      font-family: inherit;
+      font-size: .88rem;
+      background: #fff;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      transition: all var(--t);
+    }
+
+    .search-wrap input::placeholder {
+      color: var(--muted2);
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+    }
+
+    .filter-select {
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: .88rem;
+      background: #fff;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      cursor: pointer;
+      min-width: 160px;
+      transition: all var(--t);
+    }
+
+    .filter-select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+    }
+
+    /* TABLE */
+    .table-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      padding: 13px 18px;
+      text-align: left;
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background var(--t);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: var(--surface2);
+    }
+
+    tbody td {
+      padding: 13px 18px;
+      font-size: .85rem;
+      white-space: nowrap;
+      color: var(--text);
+    }
+
+    td.id-cell {
+      font-family: 'Courier New', monospace;
+      font-size: .76rem;
+      color: var(--muted);
+      max-width: 110px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    td.amount {
+      font-weight: 700;
+      color: var(--blue-dark);
+    }
+
+    td.hosp-cell {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    td.proc-cell {
+      color: var(--muted);
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      font-size: .68rem;
+      font-weight: 700;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .badge.low {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .badge.low::before {
+      background: #10b981;
+    }
+
+    .badge.medium {
+      background: rgba(245, 158, 11, 0.1);
+      color: #d97706;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .badge.medium::before {
+      background: var(--amber);
+    }
+
+    .badge.high {
+      background: rgba(239, 68, 68, 0.1);
+      color: #dc2626;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .badge.high::before {
+      background: var(--red);
+      animation: ping .8s ease infinite;
+    }
+
+    /* SCORE BAR */
+    .score-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-track {
+      flex: 1;
+      height: 5px;
+      min-width: 60px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .score-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width .6s ease;
+    }
+
+    .score-num {
+      min-width: 26px;
+      text-align: right;
+      font-weight: 700;
+      font-size: .8rem;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 64px 24px;
+      color: var(--muted);
+    }
+
+    .empty-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(37, 99, 235, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      margin: 0 auto 18px;
+    }
+
+    .empty-state h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #0f172a;
+      border-top: none;
+      margin-top: 0;
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 56px 32px 28px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    @media(max-width:768px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+    }
+
+    .footer-brand .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand .footer-logo .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2563eb, #6366f1);
+      display: grid;
+      place-items: center;
+      font-size: .65rem;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .footer-brand p {
+      font-size: .82rem;
+      color: #64748b;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: .7rem;
+      font-weight: 700;
+      color: #10b981;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul a {
+      font-size: .82rem;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color var(--t);
+    }
+
+    .footer-col ul a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: .77rem;
+      color: #475569;
+    }
+
+    .footer-bottom .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom .footer-links a {
+      font-size: .77rem;
+      color: #475569;
+      text-decoration: none;
+      transition: color var(--t);
+    }
+
+    .footer-bottom .footer-links a:hover {
+      color: #10b981;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      animation: toastIn .35s ease;
+    }
+
+    .toast.success {
+      border-left: 3px solid var(--green);
+    }
+
+    .toast.error {
+      border-left: 3px solid var(--red);
+    }
+
+    /* SKELETON */
+    .skeleton {
+      background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s ease infinite;
+      border-radius: 6px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .d1 {
+      transition-delay: .05s;
+    }
+
+    .d2 {
+      transition-delay: .12s;
+    }
+
+    .d3 {
+      transition-delay: .19s;
+    }
+
+    .d4 {
+      transition-delay: .26s;
+    }
+
+    .d5 {
+      transition-delay: .33s;
+    }
+
+    .d6 {
+      transition-delay: .4s;
+    }
+
+    .fade-up {
+      animation: fadeUp .6s ease forwards;
+      opacity: 0;
+    }
+
+    .da1 {
+      animation-delay: .05s;
+    }
+
+    .da2 {
+      animation-delay: .12s;
+    }
+
+    .da3 {
+      animation-delay: .19s;
+    }
+
+    .da4 {
+      animation-delay: .26s;
+    }
+
+    .da5 {
+      animation-delay: .33s;
+    }
+
+    .da6 {
+      animation-delay: .4s;
+    }
+
+    /* FRAUD TYPES */
+    .fraud-section {
+      background: var(--bg2);
+      padding: 80px 32px;
+    }
+
+    .fraud-section-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .fraud-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .fraud-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      transition: transform var(--t), box-shadow var(--t);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .fraud-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .fraud-icon {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(99, 102, 241, 0.1));
+      border-radius: 20px;
+      color: var(--blue);
+    }
+
+    .fraud-card h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .fraud-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: .95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a class="navbar-brand" href="#">
+        <div class="brand-logo">AB</div>
+        <span class="brand-text">AB<span>-FDA</span></span>
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="#" class="active">Dashboard</a></li>
+        <li><a href="#analytics">Analytics</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#fraud-types">Fraud Types</a></li>
+        <li><a href="#claims-section">Claims</a></li>
+      </ul>
+      <div id="liveClock"
+        style="font-size:12px;color:#64748b;font-weight:600;margin-right:16px;background:#f8fafc;padding:6px 12px;border-radius:6px;border:1px solid #e2e8f0;display:flex;align-items:center;gap:6px;">
+        &#x23F0; Live System Time: --</div>
+      <div class="navbar-actions">
+        <button id="syncBtn" class="btn btn-primary btn-sync" title="Sync claims from Firebase">
+          <span class="spinner"></span>
+          <span class="btn-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px">
+              <path d="M21 2v6h-6" />
+              <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+              <path d="M3 22v-6h6" />
+              <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+            </svg>
+            Sync Firebase
+          </span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TICKER BAR -->
+  <div class="ticker-bar">
+    <div class="ticker-label">&#x1f7e2; Live</div>
+    <div class="ticker-track" id="tickerTrack">
+      <span class="ticker-item"><span class="dot"></span>Isolation Forest ML Active</span>
+      <span class="ticker-item"><span class="dot"></span>Real-time Anomaly Scoring</span>
+      <span class="ticker-item"><span class="dot"></span>Firebase Sync Enabled</span>
+      <span class="ticker-item"><span class="dot"></span>Billing Fraud Detection</span>
+      <span class="ticker-item"><span class="dot"></span>Upcoding Analysis</span>
+      <span class="ticker-item"><span class="dot"></span>Government Healthcare Claims Protection</span>
+      <span class="ticker-item"><span class="dot"></span>Isolation Forest ML Active</span>
+      <span class="ticker-item"><span class="dot"></span>Real-time Anomaly Scoring</span>
+      <span class="ticker-item"><span class="dot"></span>Firebase Sync Enabled</span>
+      <span class="ticker-item"><span class="dot"></span>Billing Fraud Detection</span>
+      <span class="ticker-item"><span class="dot"></span>Upcoding Analysis</span>
+      <span class="ticker-item"><span class="dot"></span>Government Healthcare Claims Protection</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag fade-up da1"><span class="ping-dot"></span>AI Fraud Detection &mdash; Active</div>
+        <h1 class="fade-up da2">
+          The AI Fraud Detection Platform for <span class="gradient-text">Ayushman Bharat</span>
+        </h1>
+        <p class="hero-desc fade-up da3">
+          Real-time anomaly scoring powered by Isolation Forest ML &mdash; shielding government healthcare claims from
+          billing fraud, upcoding, and systemic abuse without friction.
+        </p>
+        <div class="hero-actions fade-up da4">
+          <a href="#claims-section" class="btn btn-green">View Claims &#x2193;</a>
+          <a href="#analytics" class="btn btn-ghost">Analytics</a>
+        </div>
+        <div class="hero-meta fade-up da5">
+          <span class="live-dot"></span>
+          <span id="lastSync">Connecting to backend&#x2026;</span>
+        </div>
+      </div>
+      <div class="hero-diagram fade-up da3">
+        <div class="diagram-center"><span>&#x1f6e1;&#xfe0f;</span>AB-FDA</div>
+        <div class="orbit-icon">&#x1f3e5;</div>
+        <div class="orbit-icon">&#x1f510;</div>
+        <div class="orbit-icon">&#x1f4f1;</div>
+        <div class="orbit-icon">&#x1f4ca;</div>
+        <div class="orbit-icon">&#x1f916;</div>
+        <div class="orbit-icon">&#x2705;</div>
+        <svg class="orbit-line" viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="200" y1="180" x2="320" y2="46" stroke="#2563eb" stroke-width="1" stroke-dasharray="4 4"
+            opacity="0.3" />
+          <line x1="200" y1="180" x2="380" y2="180" stroke="#2563eb" stroke-width="1" stroke-dasharray="4 4"
+            opacity="0.3" />
+          <line x1="200" y1="180" x2="320" y2="314" stroke="#2563eb" stroke-width="1" stroke-dasharray="4 4"
+            opacity="0.3" />
+          <line x1="200" y1="180" x2="80" y2="46" stroke="#2563eb" stroke-width="1" stroke-dasharray="4 4"
+            opacity="0.3" />
+          <line x1="200" y1="180" x2="80" y2="314" stroke="#2563eb" stroke-width="1" stroke-dasharray="4 4"
+            opacity="0.3" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT CARDS -->
+  <div class="stats-row">
+    <div class="stats-grid">
+      <div class="stat-card total reveal d1"><span class="stat-icon">&#x1f4ca;</span>
+        <div class="stat-value" id="kpiTotal">&mdash;</div>
+        <div class="stat-label">Total Claims</div>
+      </div>
+      <div class="stat-card high reveal d2"><span class="stat-icon">&#x1f6a8;</span>
+        <div class="stat-value" id="kpiHigh">&mdash;</div>
+        <div class="stat-label">High Risk</div>
+      </div>
+      <div class="stat-card medium reveal d3"><span class="stat-icon">&#x26a0;&#xfe0f;</span>
+        <div class="stat-value" id="kpiMedium">&mdash;</div>
+        <div class="stat-label">Medium Risk</div>
+      </div>
+      <div class="stat-card low reveal d4"><span class="stat-icon">&#x2705;</span>
+        <div class="stat-value" id="kpiLow">&mdash;</div>
+        <div class="stat-label">Low Risk</div>
+      </div>
+      <div class="stat-card amount reveal d5"><span class="stat-icon">&#x1f4b0;</span>
+        <div class="stat-value" id="kpiAmount">&mdash;</div>
+        <div class="stat-label">Total &#x20b9; Claimed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE TABS -->
+  <section id="platform" class="tabs-section">
+    <div class="tabs-section-inner">
+      <h2 class="tabs-section-title reveal d1">Our end-to-end platform covers the entire healthcare fraud lifecycle
+        &mdash; from claim submission to risk assessment.</h2>
+      <div class="tabs-nav reveal d2">
+        <button class="tab-btn active" onclick="switchTab(this,'tab-claims')">Claims Intelligence</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-risk')">Risk Scoring</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-ai')">AI Fraud Detection</button>
+      </div>
+      <div id="tab-claims" class="tab-content active">
+        <div class="tab-text">
+          <h3>Intelligent Claims Processing</h3>
+          <p>Our platform ingests Ayushman Bharat claims data from Firebase in real time, normalises hospital and
+            patient records, and prepares them for ML scoring.</p>
+          <ul class="tab-feature-list">
+            <li>Real-time Firebase data ingestion</li>
+            <li>Automated hospital record normalisation</li>
+            <li>Duplicate claim detection</li>
+            <li>Multi-hospital claim aggregation</li>
+          </ul>
+        </div>
+        <div class="tab-visual">
+          <div class="tab-visual-inner">
+            <div class="tab-visual-icon">&#x1f4cb;</div>
+            <div class="tab-visual-label">Claims synced from Firebase Firestore instantly</div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-risk" class="tab-content">
+        <div class="tab-text">
+          <h3>Real-Time Risk Scoring</h3>
+          <p>Each claim receives an anomaly score from our Isolation Forest model. Claims are classified as High,
+            Medium, or Low risk based on billing patterns and procedure codes.</p>
+          <ul class="tab-feature-list">
+            <li>Isolation Forest ML anomaly detection</li>
+            <li>Per-claim fraud score (0&ndash;100)</li>
+            <li>HIGH / MEDIUM / LOW risk classification</li>
+            <li>Visual score bars for quick review</li>
+          </ul>
+        </div>
+        <div class="tab-visual">
+          <div class="tab-visual-inner">
+            <div class="tab-visual-icon">&#x1f3af;</div>
+            <div class="tab-visual-label">ML model scores every claim in milliseconds</div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-ai" class="tab-content">
+        <div class="tab-text">
+          <h3>AI-Powered Fraud Detection</h3>
+          <p>Our AI identifies billing fraud, upcoding, ghost patients, and systemic abuse by analysing patterns across
+            thousands of claims simultaneously.</p>
+          <ul class="tab-feature-list">
+            <li>Billing fraud pattern recognition</li>
+            <li>Upcoding and unbundling detection</li>
+            <li>Ghost patient &amp; phantom claim flags</li>
+            <li>Cross-hospital comparison analytics</li>
+          </ul>
+        </div>
+        <div class="tab-visual">
+          <div class="tab-visual-inner">
+            <div class="tab-visual-icon">&#x1f916;</div>
+            <div class="tab-visual-label">Powered by scikit-learn Isolation Forest</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAUD TYPES -->
+  <section id="fraud-types" class="fraud-section">
+    <div class="fraud-section-inner">
+      <h2 class="tabs-section-title reveal d1" style="margin-bottom: 56px;">
+        Types of Fraud Detected
+      </h2>
+      <div class="fraud-grid">
+        <div class="fraud-card reveal d2">
+          <div class="fraud-icon">&#x1F4C8;</div>
+          <h3>Upcoding</h3>
+          <p>Billing for a more expensive service or procedure than what was actually provided to the patient to
+            maximize payout.</p>
+        </div>
+        <div class="fraud-card reveal d3">
+          <div class="fraud-icon">&#x1F4D1;</div>
+          <h3>Duplicate Claims</h3>
+          <p>Submitting multiple claims for the same service, same patient, and same date, either accidentally or
+            intentionally.</p>
+        </div>
+        <div class="fraud-card reveal d4">
+          <div class="fraud-icon">&#x1F47B;</div>
+          <h3>Ghost Billing</h3>
+          <p>Submitting claims for services that were never performed, or billing for patients who never visited the
+            hospital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <section id="analytics">
+      <div class="section-header reveal d2">
+        <div>
+          <h2>Analytics Overview</h2>
+          <p>Claimed amounts breakdown &amp; risk distribution</p>
+        </div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card reveal d3">
+          <h3>Claimed Amount by Hospital <span
+              style="font-weight:500;color:var(--muted);font-size:.65rem;text-transform:none;letter-spacing:0;margin-left:4px">&#183;
+              color = risk level</span></h3>
+          <div class="chart-container"><canvas id="barChart"></canvas></div>
+        </div>
+        <div class="chart-card reveal d4">
+          <h3>Risk Distribution</h3>
+          <div class="chart-container"><canvas id="doughnutChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="claims-section">
+      <div class="section-header reveal d2">
+        <div>
+          <h2>All Claims</h2>
+          <p>Search, filter and review individual claim records</p>
+        </div>
+      </div>
+      <div class="toolbar reveal d3">
+        <div class="search-wrap">
+          <span class="search-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg></span>
+          <input type="text" id="searchInput" placeholder="Search by hospital, patient ID, diagnosis&#x2026;" />
+        </div>
+        <select class="filter-select" id="riskFilter">
+          <option value="">All Risk Levels</option>
+          <option value="HIGH">&#x1f534; High Risk</option>
+          <option value="MEDIUM">&#x1f7e1; Medium Risk</option>
+          <option value="LOW">&#x1f7e2; Low Risk</option>
+        </select>
+        <select class="filter-select" id="hospitalFilter">
+          <option value="">All Hospitals</option>
+        </select>
+      </div>
+      <div class="table-card reveal d4">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Claim ID</th>
+                <th>Hospital</th>
+                <th>Patient ID</th>
+                <th>Diagnosis / Procedure</th>
+                <th>Claimed (&#x20b9;)</th>
+                <th>Fraud Score</th>
+                <th>Type</th>
+                <th>Risk</th>
+              </tr>
+            </thead>
+            <tbody id="claimsBody">
+              <tr>
+                <td colspan="8">
+                  <div class="skeleton" style="height:16px;width:100%;margin:10px 0"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="8">
+                  <div class="skeleton" style="height:16px;width:93%;margin:10px 0"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="8">
+                  <div class="skeleton" style="height:16px;width:87%;margin:10px 0"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="8">
+                  <div class="skeleton" style="height:16px;width:80%;margin:10px 0"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="emptyState" style="display:none">
+          <div class="empty-icon">&#x1f4ed;</div>
+          <h3>No claims found</h3>
+          <p>Click <strong>Sync Firebase</strong> to pull latest claim data, or adjust your filters.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Protect Healthcare. Protect Public Funds.</h2>
+    <p>Experience how AB-FDA uses AI to detect scams, reduce false positives, and build accountability in government
+      healthcare schemes.</p>
+    <a href="#claims-section" class="btn btn-green">View Live Claims</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="logo">AB</div>AB-FDA
+          </div>
+          <p>AI-powered fraud detection &amp; analytics platform protecting Ayushman Bharat healthcare claims in real
+            time.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Claims Analysis</a></li>
+            <li><a href="#">ML Pipeline</a></li>
+            <li><a href="#">Risk Scoring</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="#">Research</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 AB-FDA. Built for ACM Hackathon.</p>
+        <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Support</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const API = 'http://127.0.0.1:8000';
+    let allClaims = [];
+    const $ = s => document.querySelector(s);
+
+    // &#9472;&#9472; TAB SWITCHER &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    function switchTab(btn, tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // &#9472;&#9472; HERO CANVAS PARTICLES &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+      resize();
+      window.addEventListener('resize', () => { resize(); init(); });
+      function rand(a, b) { return a + Math.random() * (b - a); }
+      function init() {
+        const count = Math.floor(W / 18);
+        particles = Array.from({ length: count }, () => ({
+          x: rand(0, W), y: rand(0, H),
+          vx: rand(-0.3, 0.3), vy: rand(-0.3, 0.3),
+          r: rand(1, 2.2), a: rand(0.1, 0.4)
+        }));
+      }
+      init();
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(37,99,235,${p.a})`;
+          ctx.fill();
+        });
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(37,99,235,${0.12 * (1 - dist / 100)})`;
+              ctx.lineWidth = 0.7;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // &#9472;&#9472; SCROLL REVEAL &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // &#9472;&#9472; TOAST &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    function toast(msg, type = 'success') {
+      const el = document.createElement('div');
+      el.className = `toast ${type}`;
+      el.textContent = msg;
+      $('#toastContainer').appendChild(el);
+      setTimeout(() => { el.style.animation = 'toastOut .3s ease forwards'; setTimeout(() => el.remove(), 300); }, 3800);
+    }
+
+    // &#9472;&#9472; FORMAT &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    const fmt = n => new Intl.NumberFormat('en-IN').format(n);
+    const fmtCr = n => {
+      if (n >= 1e7) return '\u20B9' + (n / 1e7).toFixed(2) + ' Cr';
+      if (n >= 1e5) return '\u20B9' + (n / 1e5).toFixed(2) + ' L';
+      return '\u20B9' + fmt(Math.round(n));
+    };
+    function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    // &#9472;&#9472; FETCH &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    async function fetchClaims() {
+      try {
+        const res = await fetch(`${API}/claims`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        allClaims = await res.json();
+        $('#lastSync').textContent = `Last loaded ${new Date().toLocaleTimeString()} \u00B7 ${allClaims.length} records`;
+        updateDashboard();
+      } catch (err) {
+        console.error(err);
+        toast('Failed to load claims \u2014 is the backend running on port 8000?', 'error');
+        showEmpty();
+      }
+    }
+
+    // &#9472;&#9472; SYNC &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    const syncBtn = $('#syncBtn');
+    syncBtn.addEventListener('click', async () => {
+      syncBtn.classList.add('loading');
+      try {
+        const res = await fetch(`${API}/sync`, { method: 'POST' });
+        if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.detail || `HTTP ${res.status}`); }
+        const data = await res.json();
+        toast(`&#10003; Synced ${data.count} claims from Firebase`);
+        await fetchClaims();
+      } catch (err) {
+        console.error(err);
+        toast(`Sync failed: ${err.message}`, 'error');
+      } finally {
+        syncBtn.classList.remove('loading');
+      }
+    });
+
+    // &#9472;&#9472; FILTERS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    const searchInput = $('#searchInput'), riskFilter = $('#riskFilter'), hospitalFilter = $('#hospitalFilter');
+    searchInput.addEventListener('input', renderFiltered);
+    riskFilter.addEventListener('change', renderFiltered);
+    hospitalFilter.addEventListener('change', renderFiltered);
+
+    function getFiltered() {
+      const q = searchInput.value.toLowerCase().trim();
+      const risk = riskFilter.value, hosp = hospitalFilter.value;
+      return allClaims.filter(c => {
+        if (risk && c.risk !== risk) return false;
+        if (hosp && (c.hosp || '') !== hosp) return false;
+        if (q) { const hay = `${c.id} ${c.hosp} ${c.pid} ${c.proc}`.toLowerCase(); if (!hay.includes(q)) return false; }
+        return true;
+      });
+    }
+    function renderFiltered() { renderTable(getFiltered()); }
+
+    // &#9472;&#9472; DASHBOARD UPDATE &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    function updateDashboard() {
+      const high = allClaims.filter(c => c.risk === 'HIGH').length;
+      const medium = allClaims.filter(c => c.risk === 'MEDIUM').length;
+      const low = allClaims.filter(c => c.risk === 'LOW').length;
+      const total = allClaims.length;
+      const totalAmt = allClaims.reduce((s, c) => s + (c.claimed || 0), 0);
+      animateVal('kpiTotal', total); animateVal('kpiHigh', high);
+      animateVal('kpiMedium', medium); animateVal('kpiLow', low);
+      $('#kpiAmount').innerHTML = fmtCr(totalAmt);
+      const hospitals = [...new Set(allClaims.map(c => c.hosp || 'Unregistered Hospital'))].sort();
+      hospitalFilter.innerHTML = '<option value="">All Hospitals</option>' + hospitals.map(h => `<option value="${esc(h)}">${esc(h)}</option>`).join('');
+      renderTable(allClaims);
+      renderBarChart();
+      renderDoughnut(high, medium, low);
+    }
+
+    // &#9472;&#9472; ANIMATE NUMBER &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    function animateVal(id, target) {
+      const el = document.getElementById(id);
+      const start = parseInt(el.textContent) || 0;
+      const dur = 750, t0 = performance.now();
+      (function step(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(start + (target - start) * ease);
+        if (p < 1) requestAnimationFrame(step);
+      })(t0);
+    }
+
+    // &#9472;&#9472; RENDER TABLE &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    function toggleDetails(id) {
+      const el = document.getElementById('details-' + id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'table-row' : 'none';
+      }
+    }
+
+    function renderTable(data) {
+      const body = $('#claimsBody'), empty = $('#emptyState');
+      if (!data.length) { body.innerHTML = ''; empty.style.display = ''; return; }
+      empty.style.display = 'none';
+      body.innerHTML = data.map(c => {
+        const s = Math.round(c.score);
+        const sc = s >= 80 ? 'var(--red)' : s >= 50 ? 'var(--amber)' : 'var(--green)';
+        const rk = c.risk.toLowerCase();
+        const isUnreg = !c.hosp;
+        const hospDisplay = c.hosp || 'Unregistered Hospital';
+
+        // Generate details dynamically based on object keys for a generic details tab
+        let detailsHtml = '<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 8px; font-size: 0.85rem; padding: 16px; background: #fff; border: 1px solid var(--border); border-radius: 8px;">';
+        detailsHtml += '<div style="grid-column: 1 / -1;"><strong style="color:var(--text); font-size: 0.95rem;">Claim Details Profile</strong></div>';
+        for (const [key, val] of Object.entries(c)) {
+          detailsHtml += `<div><strong style="text-transform:capitalize; color:var(--blue);">${key}:</strong> <span style="color:var(--text2);">${esc(String(val))}</span></div>`;
+        }
+        detailsHtml += '</div>';
+
+        return `<tr onclick="toggleDetails('${c.id}')" style="cursor:pointer; ${isUnreg ? 'opacity:.55' : ''}">
+          <td class="id-cell" title="${c.id}">${c.id}</td>
+          <td class="hosp-cell"${isUnreg ? ' style="font-style:italic;color:var(--muted)"' : ''}>${esc(hospDisplay)}</td>
+          <td>${esc(c.pid)}</td><td class="proc-cell">${esc(c.proc || '\u2014')}</td>
+          <td class="amount">\u20B9${fmt(Math.round(c.claimed))}</td>
+          <td><div class="score-bar-wrap"><span class="score-num" style="color:${sc}">${s}</span><div class="score-track"><div class="score-fill" style="width:${c.score}%;background:${sc}"></div></div></div></td>
+          <td style="text-transform:capitalize;color:var(--muted)">${esc(c.type)}</td>
+          <td><span class="badge ${rk}">${c.risk}</span>${c.risk === 'HIGH' ? `<button class='btn btn-ghost' style='padding: 2px 8px; font-size: 11px; margin-left: 8px; border: 1px solid #cbd5e1;' onclick='event.stopPropagation(); explainClaim("${c.id}")'>&#x1F916; AI Explain</button>` : ''}</td>
+        </tr>
+        <tr id="details-${c.id}" style="display:none; background: var(--surface2);">
+          <td colspan="8" style="padding: 0 24px 16px 24px; border-top: none;">
+             ${detailsHtml}
+          </td>
+        </tr>`;
+      }).join('');
+    }
+    function showEmpty() { $('#claimsBody').innerHTML = ''; $('#emptyState').style.display = ''; }
+
+    // &#9472;&#9472; BAR CHART &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    let barInstance = null;
+    function renderBarChart() {
+      const hospMap = {};
+      allClaims.forEach(c => {
+        const h = c.hosp; if (!h || h === 'Unregistered Hospital') return;
+        if (!hospMap[h]) hospMap[h] = { total: 0, maxRisk: 'LOW' };
+        hospMap[h].total += c.claimed || 0;
+        if (c.risk === 'HIGH') hospMap[h].maxRisk = 'HIGH';
+        else if (c.risk === 'MEDIUM' && hospMap[h].maxRisk !== 'HIGH') hospMap[h].maxRisk = 'MEDIUM';
+      });
+      const labels = Object.keys(hospMap).sort((a, b) => hospMap[b].total - hospMap[a].total);
+      const totals = labels.map(h => Math.round(hospMap[h].total));
+      const rp = {
+        HIGH: { bg: 'rgba(239,68,68,0.75)', border: '#ef4444' },
+        MEDIUM: { bg: 'rgba(245,158,11,0.75)', border: '#f59e0b' },
+        LOW: { bg: 'rgba(16,185,129,0.7)', border: '#10b981' },
+      };
+      const bgColors = labels.map(h => rp[hospMap[h].maxRisk].bg);
+      const borderColors = labels.map(h => rp[hospMap[h].maxRisk].border);
+      if (barInstance) barInstance.destroy();
+      barInstance = new Chart($('#barChart'), {
+        type: 'bar',
+        data: { labels, datasets: [{ label: 'Total Claimed', data: totals, backgroundColor: bgColors, borderColor: borderColors, borderWidth: 2, borderRadius: 10, borderSkipped: false, barPercentage: 0.6, categoryPercentage: 0.75 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          animation: { duration: 900, easing: 'easeOutQuart' },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#fff', titleColor: '#1a2540', bodyColor: '#64748b',
+              borderColor: 'rgba(37,99,235,0.15)', borderWidth: 1,
+              cornerRadius: 10, padding: 14,
+              titleFont: { family: 'Inter', weight: '700', size: 12 },
+              bodyFont: { family: 'Inter', size: 12 },
+              callbacks: {
+                title: ctx => ctx[0].label,
+                label: ctx => ` \u20B9${fmt(ctx.parsed.y)} \u00B7 ${hospMap[ctx.label]?.maxRisk || ''} risk`
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: '#64748b', font: { size: 11, family: 'Inter', weight: '600' }, maxRotation: 35,
+                callback: function (v) { const l = this.getLabelForValue(v); return l.length > 14 ? l.slice(0, 14) + '\u2026' : l; }
+              },
+              grid: { display: false }, border: { display: false }
+            },
+            y: {
+              ticks: { color: '#94a3b8', font: { size: 11, family: 'Inter' }, callback: v => fmtCr(v) },
+              grid: { color: 'rgba(37,99,235,0.06)' }, border: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    // &#9472;&#9472; DOUGHNUT CHART &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    let doughnutInst = null;
+    const centerTextPlugin = {
+      id: 'centerText',
+      beforeDraw(chart) {
+        if (chart.config.type !== 'doughnut') return;
+        const { width, height, ctx } = chart;
+        const total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+        ctx.save();
+        const cx = width / 2, cy = height / 2 - 14;
+        ctx.font = '700 1.8rem Inter, sans-serif';
+        ctx.fillStyle = '#1a2540';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(total, cx, cy);
+        ctx.font = '600 .65rem Inter, sans-serif';
+        ctx.fillStyle = '#64748b';
+        ctx.fillText('TOTAL CLAIMS', cx, cy + 24);
+        ctx.restore();
+      }
+    };
+    function renderDoughnut(high, medium, low) {
+      if (doughnutInst) doughnutInst.destroy();
+      doughnutInst = new Chart($('#doughnutChart'), {
+        type: 'doughnut', plugins: [centerTextPlugin],
+        data: {
+          labels: ['High Risk', 'Medium Risk', 'Low Risk'],
+          datasets: [{
+            data: [high, medium, low],
+            backgroundColor: ['#ef4444', '#f59e0b', '#10b981'],
+            hoverBackgroundColor: ['#dc2626', '#d97706', '#059669'],
+            borderColor: '#ffffff', borderWidth: 3, hoverOffset: 14, borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, cutout: '70%',
+          animation: { duration: 900, easing: 'easeOutQuart' },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#334155', font: { family: 'Inter', size: 12, weight: '600' }, padding: 22, usePointStyle: true, pointStyleWidth: 12 } },
+            tooltip: {
+              backgroundColor: '#fff', titleColor: '#1a2540', bodyColor: '#64748b',
+              borderColor: 'rgba(37,99,235,0.15)', borderWidth: 1,
+              cornerRadius: 10, padding: 14,
+              titleFont: { family: 'Inter', weight: '700', size: 13 },
+              bodyFont: { family: 'Inter', size: 12 },
+              callbacks: {
+                label: ctx => {
+                  const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                  const pct = ((ctx.parsed / total) * 100).toFixed(1);
+                  return ` ${ctx.label}: ${ctx.parsed} claims (${pct}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // &#9472;&#9472; AI FUNCTION &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    async function explainClaim(id) {
+      const m = document.getElementById('aiModal');
+      const t = document.getElementById('aiText');
+      m.style.display = 'flex';
+      t.innerHTML = '<i>Generating AI Fraud Analysis...</i>';
+      try {
+        const r = await fetch('http://localhost:8000/explain/' + id);
+        const d = await r.json();
+        let txt = d.analysis || 'Error analyzing claim.';
+        txt = txt.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        txt = txt.replace(/`(.*?)`/g, '<code style="background:#f1f5f9;padding:2px 4px;border-radius:4px;color:#0f172a;">$1</code>');
+        txt = txt.replace(/\n/g, '<br>');
+        t.innerHTML = txt;
+      } catch (e) { t.innerHTML = '<span style="color:red">Failed to connect to AI engine. Is the backend running?</span>'; }
+    }
+    function closeAiModal() { document.getElementById('aiModal').style.display = 'none'; }
+
+    // &#9472;&#9472; BOOT &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    setInterval(() => {
+      const d = new Date();
+      const el = document.getElementById('liveClock');
+      if (el) el.textContent = 'Live System Time: ' + d.toLocaleTimeString();
+    }, 1000);
+
+    fetchClaims();
+  </script>
+
+
+  <div id="aiModal"
+    style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.4);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+    <div
+      style="background:#ffffff;padding:2rem;border-radius:12px;max-width:550px;width:90%;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);border:1px solid #e2e8f0;animation: fadeUp 0.3s ease-out forwards;">
+      <div
+        style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;border-bottom:1px solid #f1f5f9;padding-bottom:1rem;">
+        <h3
+          style="margin:0;color:#1e293b;font-family:Inter,sans-serif;font-size:1.25rem;display:flex;align-items:center;gap:8px;font-weight:700;">
+          <span style="background:#eff6ff;padding:8px;border-radius:8px;font-size:1.2rem;display:flex;">&#x1F916;</span>
+          AI Fraud Investigator
+        </h3>
+        <button onclick="closeAiModal()"
+          style="background:none;border:none;font-size:1.8rem;color:#94a3b8;cursor:pointer;line-height:1;border-radius:6px;padding:4px 8px;transition:0.2s;">&times;</button>
+      </div>
+      <div id="aiText" style="color:#475569;line-height:1.7;font-size:0.95rem;font-family:Inter,sans-serif;"></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
